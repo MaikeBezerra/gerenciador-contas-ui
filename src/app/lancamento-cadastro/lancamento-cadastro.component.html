@@ -1,0 +1,66 @@
+<div class="container">
+    <form>
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <h1>Novo Lançamento</h1>
+            </div>
+
+            <div class="ui-g-12">
+                <p-selectButton [options]="tipos" #tipo></p-selectButton>
+            </div>
+
+            <div class="ui-g-6 ui-md-3 ui-fluid">
+                <label>Vencimento</label>
+                <p-calendar dateFormat="dd/mm/yy" name="vencimento"
+                    ngModel #vencimento="ngModel" required></p-calendar>
+
+                <app-message [control]="vencimento" error="required"
+                    severity="warn" text="Informe um vencimento"></app-message>
+            </div>
+
+            <div class="ui-g-6 ui-md-3 ui-fluid">
+                <label>{{tipo.value === 'RECEITA' ? "Recebimento" : "Pagamento"}}</label>
+                <p-calendar dateFormat="dd/mm/yy"></p-calendar>
+            </div>
+
+            <div class="ui-g-12 ui-md-9 ui-fluid">
+                <label>Descrição</label>
+                <input pInputText type="text" name="descricao" 
+                    ngModel #descricao="ngModel" required minlength="5">
+
+                <app-message [control]="descricao" error="required"
+                    severity="warn" text="Informe uma descrição" ></app-message>
+                
+                <app-message [control]="descricao" error="minlength"
+                    severity="error" text="Mínimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres"></app-message>
+               
+            </div>
+
+            <div class="ui-g-6 ui-md-3 ui-fluid">
+                <label>Valor</label>
+                <input pInputText type="text" placeholder="0,00">
+            </div>
+
+            <div class="ui-g-6 ui-md-6 ui-fluid">
+                <label>Categoria</label>
+                <p-dropdown [options]="categorias" placeholder="Selecione" required></p-dropdown>
+            </div>
+
+            <div class="ui-g-6 ui-md-6 ui-fluid">
+                <label>Pessoa</label>
+                <p-dropdown [options]="pessoas" placeholder="Selecione" required></p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-fluid">
+                <label>Observação</label>
+                <textarea pInputTextarea type="text"></textarea>
+            </div>
+            
+            <div class="ui-g-12">
+                <button pButton type="submit" class="ui-button-primary" label="Salvar"></button>    
+                <button pButton type="button" class="ui-button-info" label="Novo"></button>
+                <a href="javascript:;">Voltar para a pesquisa</a>
+            </div>
+        </div>
+    </form>
+</div>
