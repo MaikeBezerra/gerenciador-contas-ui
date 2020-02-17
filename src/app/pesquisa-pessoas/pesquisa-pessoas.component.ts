@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pesquisa-pessoas.component.css']
 })
 export class PesquisaPessoasComponent {
-  pessoas = [
-    {nome : "Maike Bezerra", cidade : "Jucás", estado: "CE", status : true}
-  ];
+  
 
 }

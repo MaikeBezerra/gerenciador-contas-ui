@@ -22,8 +22,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { PesquisaPessoasComponent } from './pesquisa-pessoas/pesquisa-pessoas.component';
 import { CadastroPessoaComponent } from './cadastro-pessoa/cadastro-pessoa.component';
-import { from } from 'rxjs';
 import { MessageComponent } from './message/message.component';
+import { LancamentoListComponent } from './lancamento-list/lancamento-list.component';
+import { PessoaListComponent } from './pessoa-list/pessoa-list.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ import { MessageComponent } from './message/message.component';
     LancamentoCadastroComponent,
     PesquisaPessoasComponent,
     CadastroPessoaComponent,
-    MessageComponent
+    MessageComponent,
+    LancamentoListComponent,
+    PessoaListComponent
   ],
   imports: [
     BrowserModule,
