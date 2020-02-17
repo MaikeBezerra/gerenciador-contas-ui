@@ -26,6 +26,7 @@ import { MessageComponent } from './message/message.component';
 import { LancamentoListComponent } from './lancamento-list/lancamento-list.component';
 import { PessoaListComponent } from './pessoa-list/pessoa-list.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

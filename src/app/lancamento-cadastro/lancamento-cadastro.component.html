@@ -1,5 +1,5 @@
 <div class="container">
-    <form>
+    <form #lancamentoForm="ngForm" name="lancamentoForm">
         <div class="ui-g">
             <div class="ui-g-12">
                 <h1>Novo Lançamento</h1>
@@ -43,12 +43,14 @@
 
             <div class="ui-g-6 ui-md-6 ui-fluid">
                 <label>Categoria</label>
-                <p-dropdown [options]="categorias" placeholder="Selecione" required></p-dropdown>
+                <p-dropdown [options]="categorias" name="categoria" placeholder="Selecione" 
+                    ngModel #categoria="ngModel" required></p-dropdown>
             </div>
 
             <div class="ui-g-6 ui-md-6 ui-fluid">
                 <label>Pessoa</label>
-                <p-dropdown [options]="pessoas" placeholder="Selecione" required></p-dropdown>
+                <p-dropdown [options]="pessoas" name="pessoa" placeholder="Selecione" 
+                    ngModel #categoria="ngModel" required></p-dropdown>
             </div>
 
             <div class="ui-g-12 ui-fluid">
@@ -57,7 +59,7 @@
             </div>
             
             <div class="ui-g-12">
-                <button pButton type="submit" class="ui-button-primary" label="Salvar"></button>    
+                <button pButton type="submit" [disabled]="!lancamentoForm.valid" label="Salvar"></button>
                 <button pButton type="button" class="ui-button-info" label="Novo"></button>
                 <a href="javascript:;">Voltar para a pesquisa</a>
             </div>

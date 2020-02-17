@@ -16,9 +16,10 @@ body {
     }
   }
 
-  .col-valor-header {
+.col-valor-header {
     width: 120px;
 }
+
 .col-valor-content {
     text-align: right;
 }
@@ -36,11 +37,11 @@ body {
   text-align: center;
 }
 
-button {
-  padding-left: 5px;
-}
-
 .ui-messages-error {
   margin: 0;
   padding: 0;
+}
+
+body .ui-button {
+  margin-right: 5px;
 }
