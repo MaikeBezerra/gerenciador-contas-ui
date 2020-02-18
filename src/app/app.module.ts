@@ -17,26 +17,21 @@ import {DropdownModule} from 'primeng/dropdown';
 import {InputMaskModule} from 'primeng/inputmask';
 
 import { AppComponent } from './app.component';
-import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { PesquisaPessoasComponent } from './pesquisa-pessoas/pesquisa-pessoas.component';
 import { CadastroPessoaComponent } from './cadastro-pessoa/cadastro-pessoa.component';
 import { MessageComponent } from './message/message.component';
-import { LancamentoListComponent } from './lancamento-list/lancamento-list.component';
 import { PessoaListComponent } from './pessoa-list/pessoa-list.component';
+import { LancamentoModule } from './lancamento/lancamento.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LancamentosPesquisaComponent,
     NavbarComponent,
-    LancamentoCadastroComponent,
     PesquisaPessoasComponent,
     CadastroPessoaComponent,
     MessageComponent,
-    LancamentoListComponent,
     PessoaListComponent
   ],
   imports: [
@@ -45,6 +40,7 @@ import { PessoaListComponent } from './pessoa-list/pessoa-list.component';
     ButtonModule,
     FormsModule,
 
+    LancamentoModule,
     MessagesModule,
     MessageModule,
   
