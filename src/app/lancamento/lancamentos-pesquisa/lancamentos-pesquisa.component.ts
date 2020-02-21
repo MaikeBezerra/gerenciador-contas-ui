@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { LancamentoService } from '../lancamento.service';
+
 @Component({
   selector: 'app-lancamentos-pesquisa',
   templateUrl: './lancamentos-pesquisa.component.html',
@@ -7,4 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LancamentosPesquisaComponent {
   
+  descricao: string;
+  lancamentos = [];
+
+  constructor(private lancamentoService: LancamentoService) { }
+
+  ngOnInit() {
+    this.pesquisar();
+  }
+
+  pesquisar() {
+    this.lancamentoService.pesquisar({ descricao : this.descricao})
+      .then(lancamentos => this.lancamentos = lancamentos);
+  }
 }

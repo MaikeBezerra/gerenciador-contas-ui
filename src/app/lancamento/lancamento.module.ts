@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule }    from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,20 +10,16 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { MessageModule } from 'primeng/message';
-import { MessagesModule } from 'primeng/messages';
 import { DropdownModule } from 'primeng/dropdown';
 
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
-import { LancamentoListComponent } from './lancamento-list/lancamento-list.component';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     LancamentoCadastroComponent,
-    LancamentosPesquisaComponent,
-    LancamentoListComponent
+    LancamentosPesquisaComponent
   ],
   imports: [
     CommonModule,
@@ -33,9 +31,11 @@ import { LancamentoListComponent } from './lancamento-list/lancamento-list.compo
     BrowserAnimationsModule,
     SelectButtonModule,
     DropdownModule,
+    
+    BrowserModule,
+    HttpClientModule,
 
-    MessagesModule,
-    MessageModule
+    SharedModule
   ],
   exports: [
     LancamentoCadastroComponent,
