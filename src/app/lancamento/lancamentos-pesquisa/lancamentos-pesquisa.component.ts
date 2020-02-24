@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { LancamentoService } from '../lancamento.service';
+import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
+import { LazyLoadEvent } from 'primeng/api/lazyloadevent';
+import { Table } from 'primeng/table/table';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -9,17 +11,36 @@ import { LancamentoService } from '../lancamento.service';
 })
 export class LancamentosPesquisaComponent {
   
-  descricao: string;
+  @ViewChild('tabela', {static: true}) tabela: Table;
+  filtro = new LancamentoFiltro();
+  totalRegistros = 0;
   lancamentos = [];
 
   constructor(private lancamentoService: LancamentoService) { }
 
   ngOnInit() {
-    this.pesquisar();
+    
   }
 
-  pesquisar() {
-    this.lancamentoService.pesquisar({ descricao : this.descricao})
-      .then(lancamentos => this.lancamentos = lancamentos);
+  pesquisar(pagina = 0) {
+    this.filtro.pagina = pagina;
+
+    this.lancamentoService.pesquisar(this.filtro)
+      .then(resultado => {
+        this.totalRegistros = resultado.total; 
+        this.lancamentos = resultado.lancamentos
+      });
   }
+
+  aoMudarPagina(event: LazyLoadEvent) {
+    const pagina = event.first / event.rows;
+    this.pesquisar(pagina);
+  }
+
+  excluir(id: number) {
+    this.lancamentoService.excluir(id)
+      .then(() => {
+        this.tabela.reset();
+      });
+}
 }
