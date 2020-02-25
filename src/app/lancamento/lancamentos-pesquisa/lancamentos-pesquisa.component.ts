@@ -1,13 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 import { LazyLoadEvent } from 'primeng/api/lazyloadevent';
 import { Table } from 'primeng/table/table';
+import { MessageService, ConfirmationService } from 'primeng/api';
+
+import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
   templateUrl: './lancamentos-pesquisa.component.html',
-  styleUrls: ['./lancamentos-pesquisa.component.css']
+  styleUrls: ['./lancamentos-pesquisa.component.css'],
+  providers: [MessageService]
 })
 export class LancamentosPesquisaComponent {
   
@@ -16,7 +19,10 @@ export class LancamentosPesquisaComponent {
   totalRegistros = 0;
   lancamentos = [];
 
-  constructor(private lancamentoService: LancamentoService) { }
+  constructor(
+    private lancamentoService: LancamentoService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     
@@ -38,9 +44,27 @@ export class LancamentosPesquisaComponent {
   }
 
   excluir(id: number) {
+    this.confirmationService.confirm({
+      message: 'Realmente deseja excluir o lancamento?',
+      acceptLabel : 'Sim',
+      rejectLabel : 'Não',
+      accept: () => {
+          this.excluirLancamento(id);
+      }
+    });
+  }
+
+  private excluirLancamento(id : number){
     this.lancamentoService.excluir(id)
       .then(() => {
         this.tabela.reset();
+        this.messageService.add(
+          { 
+            key: 'del',
+            severity:'success', 
+            summary: 'Lançamento excluido com sucesso!',
+            life: 3000
+          })
       });
-}
+  }
 }

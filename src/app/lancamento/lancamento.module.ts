@@ -11,6 +11,7 @@ import { TableModule } from 'primeng/table';
 import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
+import { ToastModule } from 'primeng/toast';
 
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
@@ -22,18 +23,20 @@ import { SharedModule } from '../shared/shared.module';
     LancamentosPesquisaComponent
   ],
   imports: [
+    BrowserModule,
+    HttpClientModule,
     CommonModule,
     FormsModule,
+    BrowserAnimationsModule,
+
+    // Primeng
     InputTextModule,
     InputTextareaModule,
     TableModule,
     CalendarModule,
-    BrowserAnimationsModule,
     SelectButtonModule,
     DropdownModule,
-    
-    BrowserModule,
-    HttpClientModule,
+    ToastModule,
 
     SharedModule
   ],
