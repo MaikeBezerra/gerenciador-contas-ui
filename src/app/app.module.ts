@@ -1,14 +1,18 @@
-
+import { registerLocaleData } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import localePt from '@angular/common/locales/pt';
 
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 import { AppComponent } from './app.component';
 import { LancamentoModule } from './lancamento/lancamento.module';
 import { PessoaModule } from './pessoa/pessoa.module';
 import { CoreModule } from './core/core.module';
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
@@ -17,6 +21,7 @@ import { CoreModule } from './core/core.module';
   imports: [
     BrowserModule,
     ConfirmDialogModule,
+    ToastModule,
 
     LancamentoModule,
     PessoaModule,
