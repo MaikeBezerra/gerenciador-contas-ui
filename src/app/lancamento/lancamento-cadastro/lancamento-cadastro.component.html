@@ -1,18 +1,21 @@
+<p-toast key="salvar" position="top-right"></p-toast>
+
 <div class="container">
-    <form #lancamentoForm="ngForm" name="lancamentoForm">
+    <form #lancamentoForm="ngForm" name="lancamentoForm" autocomplete="off" (ngSubmit)="salvar(lancamentoForm)">
         <div class="ui-g">
             <div class="ui-g-12">
                 <h1>Novo Lançamento</h1>
             </div>
 
             <div class="ui-g-12">
-                <p-selectButton [options]="tipos" #tipo></p-selectButton>
+                <p-selectButton [options]="tipos" #tipo name="tipo" [(ngModel)]="lancamento.tipo"></p-selectButton>
             </div>
 
             <div class="ui-g-6 ui-md-3 ui-fluid">
                 <label>Vencimento</label>
                 <p-calendar dateFormat="dd/mm/yy" name="vencimento"
-                    ngModel #vencimento="ngModel" required></p-calendar>
+                    ngModel #vencimento="ngModel" required
+                    [(ngModel)]="lancamento.dataVencimento"></p-calendar>
 
                 <app-message [control]="vencimento" error="required"
                     severity="warn" text="Informe um vencimento"></app-message>
@@ -20,13 +23,15 @@
 
             <div class="ui-g-6 ui-md-3 ui-fluid">
                 <label>{{tipo.value === 'RECEITA' ? "Recebimento" : "Pagamento"}}</label>
-                <p-calendar dateFormat="dd/mm/yy"></p-calendar>
+                <p-calendar dateFormat="dd/mm/yy"
+                    [(ngModel)]="lancamento.dataPagamento" name="pagamento"></p-calendar>
             </div>
 
             
             <div class="ui-g-12 ui-md-9 ui-fluid">
                 <label>Descrição</label>
                 <input pInputText type="text" name="descricao" 
+                    [(ngModel)]="lancamento.descricao"
                     ngModel #descricao="ngModel" required minlength="5">
 
                 <app-message [control]="descricao" error="required"
@@ -39,30 +44,30 @@
 
             <div class="ui-g-6 ui-md-3 ui-fluid">
                 <label>Valor</label>
-                <input pInputText type="text" placeholder="0,00">
+                <input pInputText type="text" placeholder="0,00" name="valor" [(ngModel)]="lancamento.valor">
             </div>
 
             <div class="ui-g-6 ui-md-6 ui-fluid">
                 <label>Categoria</label>
                 <p-dropdown [options]="categorias" name="categoria" placeholder="Selecione" 
-                    ngModel #categoria="ngModel" required></p-dropdown>
+                    ngModel #categoria="ngModel" required [(ngModel)]="lancamento.categoria.id"></p-dropdown>
             </div>
 
             <div class="ui-g-6 ui-md-6 ui-fluid">
                 <label>Pessoa</label>
                 <p-dropdown [options]="pessoas" name="pessoa" placeholder="Selecione" 
-                    ngModel #categoria="ngModel" required></p-dropdown>
+                    ngModel #categoria="ngModel" required  [(ngModel)]="lancamento.pessoa.id"></p-dropdown>
             </div>
 
             <div class="ui-g-12 ui-fluid">
                 <label>Observação</label>
-                <textarea pInputTextarea type="text"></textarea>
+                <textarea pInputTextarea type="text" name="observacao" [(ngModel)]="lancamento.observacao"></textarea>
             </div>
             
             <div class="ui-g-12">
                 <button pButton type="submit" [disabled]="!lancamentoForm.valid" label="Salvar"></button>
                 <button pButton type="button" class="ui-button-info" label="Novo"></button>
-                <a href="javascript:;">Voltar para a pesquisa</a>
+                <a routerLink="/lancamentos">Voltar para a pesquisa</a>
             </div>
         </div>
     </form>

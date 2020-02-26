@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { MessageService, ConfirmationService } from 'primeng/api';
@@ -10,6 +11,7 @@ import { ErrorHandlerService } from './error-handler.service';
   declarations: [ NavbarComponent],
   imports: [
     CommonModule,
+    RouterModule
   ],
   exports: [ NavbarComponent ],
   providers: [

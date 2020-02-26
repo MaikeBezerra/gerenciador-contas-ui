@@ -1,4 +1,4 @@
-import { Component, ViewChild, ErrorHandler } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/api/lazyloadevent';
 import { Table } from 'primeng/table/table';

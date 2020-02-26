@@ -49,15 +49,16 @@
                 <tr>
                     <td>{{lancamento.pessoa.nome}}</td>
                     <td>{{lancamento.descricao}}</td>
-                    <td class="col-data-content">{{lancamento.dataVencimento | date:'dd/MM/yyyy'}}</td>
-                    <td class="col-data-content">{{lancamento.dataPagamento | date:'dd/MM/yyyy'}}</td>
+                    <td class="col-data-content">{{lancamento.dataVencimento}}</td>
+                    <td class="col-data-content">{{lancamento.dataPagamento}}</td>
                     <td class="col-valor-content">
                     <span [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">
                         R$ {{lancamento.valor | number:'1.2-2'}}
                     </span>
                     </td>
                     <td class="col-acoes-content">
-                    <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+                    <a pButton icon="pi pi-pencil" pTooltip="Editar" 
+                      [routerLink]="['/lancamentos', lancamento.id]" tooltipPosition="top"></a>
                     <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="bottom"
                       (click)="excluir(lancamento.id)"></button>
                     </td>
@@ -67,6 +68,10 @@
               Nenhum lançamento encontrado
             </ng-template>
         </p-table>   
-      </div>          
+      </div> 
+      
+      <div class="ui-g-12">
+        <a pButton label="Novo Lançamento" routerLink="/lancamentos/novo"></a>
+      </div>
     </div>
   </div>

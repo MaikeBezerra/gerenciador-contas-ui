@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as moment from 'moment'
+import { Lancamento } from '../core/model';
 
 export class LancamentoFiltro {
   descricao : string;
@@ -47,5 +48,62 @@ export class LancamentoService {
     return this.http.delete(`${this.lancamentoUrl}/${id}`, { headers })
       .toPromise()
       .then(() => null);
+  }
+
+  adicionar(lancamento: Lancamento): Promise<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic YWRtaW46YWRtaW4=',
+      'Content-Type': 'application/json'
+    });
+
+    lancamento.dataVencimento = this.converteDataParaString(lancamento.dataVencimento);
+    lancamento.dataPagamento = this.converteDataParaString(lancamento.dataPagamento);
+
+    return this.http.post(this.lancamentoUrl,
+        JSON.stringify(lancamento), { headers })
+      .toPromise()
+      .then(response => response);
+  }
+
+  atualizar(lancamento: Lancamento): Promise<any>{
+    const headers = this.headersBasic();
+    
+    lancamento.dataVencimento = this.converteDataParaString(lancamento.dataVencimento);
+    lancamento.dataPagamento = this.converteDataParaString(lancamento.dataPagamento);
+
+    return this.http.put(`${this.lancamentoUrl}/${lancamento.id}`, 
+        JSON.stringify(lancamento), { headers })
+      .toPromise()
+      .then(response => response);
+  }
+
+  buscarPorId(id: number): Promise<Lancamento>{
+    const headers = new HttpHeaders({'Authorization': 'Basic YWRtaW46YWRtaW4='});
+    
+    return this.http.get(`${this.lancamentoUrl}/${id}`, {headers})
+      .toPromise()
+      .then(response => {
+        const lancamento = response as Lancamento;
+
+        lancamento.dataVencimento = this.converteStringParaData(lancamento.dataVencimento);
+        lancamento.dataPagamento = this.converteStringParaData(lancamento.dataPagamento);
+
+        return lancamento;
+      });
+  }
+
+  private converteStringParaData(data: string) : Date {
+    return moment(data, 'YYYY-MM-DD').toDate();
+  }
+
+  private converteDataParaString(data: string) : string {
+    return moment(data).format('DD/MM/YYYY');
+  }
+
+  private headersBasic() : HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': 'Basic YWRtaW46YWRtaW4=',
+      'Content-Type': 'application/json'
+    });
   }
 }
