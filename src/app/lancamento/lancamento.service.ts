@@ -50,7 +50,7 @@ export class LancamentoService {
       .then(() => null);
   }
 
-  adicionar(lancamento: Lancamento): Promise<any> {
+  adicionar(lancamento: Lancamento): Promise<Lancamento> {
     const headers = new HttpHeaders({
       'Authorization': 'Basic YWRtaW46YWRtaW4=',
       'Content-Type': 'application/json'
@@ -62,10 +62,13 @@ export class LancamentoService {
     return this.http.post(this.lancamentoUrl,
         JSON.stringify(lancamento), { headers })
       .toPromise()
-      .then(response => response);
+      .then(response => {
+        const lancamento = response as Lancamento;
+        return lancamento;
+      });
   }
 
-  atualizar(lancamento: Lancamento): Promise<any>{
+  atualizar(lancamento: Lancamento): Promise<Lancamento>{
     const headers = this.headersBasic();
     
     lancamento.dataVencimento = this.converteDataParaString(lancamento.dataVencimento);
@@ -74,7 +77,10 @@ export class LancamentoService {
     return this.http.put(`${this.lancamentoUrl}/${lancamento.id}`, 
         JSON.stringify(lancamento), { headers })
       .toPromise()
-      .then(response => response);
+      .then(response => {
+        const lancamento = response as Lancamento;
+        return lancamento;
+      });
   }
 
   buscarPorId(id: number): Promise<Lancamento>{
@@ -93,11 +99,15 @@ export class LancamentoService {
   }
 
   private converteStringParaData(data: string) : Date {
-    return moment(data, 'YYYY-MM-DD').toDate();
+    if(data) {
+      return moment(data, 'YYYY-MM-DD').toDate();
+    }
   }
 
   private converteDataParaString(data: string) : string {
-    return moment(data).format('DD/MM/YYYY');
+    if(data) {
+      return moment(data).format('DD/MM/YYYY');
+    }
   }
 
   private headersBasic() : HttpHeaders {

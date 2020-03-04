@@ -12,7 +12,7 @@ import { ToastModule } from 'primeng/toast';
 
 import { CadastroPessoaComponent } from './cadastro-pessoa/cadastro-pessoa.component';
 import { PesquisaPessoasComponent } from './pesquisa-pessoas/pesquisa-pessoas.component';
-
+import { PessoasRoutingModule } from './pessoas-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -32,11 +32,9 @@ import { SharedModule } from '../shared/shared.module';
     TooltipModule,
     ToastModule,
    
-    SharedModule
+    SharedModule,
+    PessoasRoutingModule
   ],
-  exports: [
-    CadastroPessoaComponent,
-    PesquisaPessoasComponent
-  ]
+  exports: []
 })
 export class PessoaModule { }

@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
+import { MessageService } from 'primeng/api';
 
 import { CategoriasService } from '../../categoria/categorias.service';
 import { ErrorHandlerService } from '../../core/error-handler.service';
 import { PessoasService} from '../../pessoa/pessoas.service';
 import { Lancamento } from '../../core/model';
 import { LancamentoService } from '../lancamento.service';
-import { MessageService } from 'primeng/api';
-
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -29,11 +31,35 @@ export class LancamentoCadastroComponent implements OnInit{
       private lancamentoService: LancamentoService,
       private messageService: MessageService,
       private erroHandler: ErrorHandlerService,
-      private pessoaService: PessoasService){ }
+      private pessoaService: PessoasService,
+      private route: ActivatedRoute,
+      private router: Router,
+      private title: Title){ }
 
   ngOnInit() {
+    this.title.setTitle('Novo lançamento')
+
+    const codigoLancamento = this.route.snapshot.params['id'];
+
+    if (codigoLancamento) {
+      this.atualizarTitilo();
+      this.carregarLancamento(codigoLancamento);
+    }
+
     this.carregarCategorias();
     this.carregarPessoas();
+  }
+  
+  get editando() : boolean {
+    return Boolean(this.lancamento.id)
+  }
+
+  carregarLancamento(id: number) {
+    this.lancamentoService.buscarPorId(id)
+      .then(lancamento => {
+        this.lancamento = lancamento;
+      })
+      .catch(erro => this.erroHandler.handle(erro));
   }
 
   carregarPessoas() {    
@@ -58,10 +84,18 @@ export class LancamentoCadastroComponent implements OnInit{
       .catch(erro => this.erroHandler.handle(erro));
   }
 
-  salvar(form: NgForm) {
+  salvar(form : NgForm) {
+    if(this.editando) {
+      this.atualizarLancamento(form);
+    } else {
+      this.salvarLancamento(form);
+    }
+  }
+
+  salvarLancamento(form: NgForm) {
 
     this.lancamentoService.adicionar(this.lancamento)
-      .then(() => {
+      .then(lancamento => {
         this.messageService.add(
           { 
             key: 'salvar',
@@ -70,9 +104,38 @@ export class LancamentoCadastroComponent implements OnInit{
             life: 3000
           })
         
-        form.reset();
-        this.lancamento = new Lancamento();
+        this.router.navigate(['/lancamentos', lancamento.id]);
       })
       .catch(erro => this.erroHandler.handle(erro));
   }
+
+  atualizarLancamento(form : NgForm) {
+    this.lancamentoService.atualizar(this.lancamento)
+      .then(lancamento => {
+        this.messageService.add(
+          { 
+            key: 'salvar',
+            severity:'success', 
+            summary: 'Lançamento editado com sucesso!',
+            life: 3000
+          })
+        this.lancamento = lancamento;
+      })
+      .catch(erro => this.erroHandler.handle(erro));
+  }
+
+  novo(form: NgForm) {
+    form.reset();
+
+    setTimeout(function() {
+      this.lancamento = new Lancamento();
+    }.bind(this), 1);
+
+    this.router.navigate(['/lancamentos/novo']);
+  }
+
+  atualizarTitilo(){
+    this.title.setTitle('Edição de Lançamento');
+  }
+
 }

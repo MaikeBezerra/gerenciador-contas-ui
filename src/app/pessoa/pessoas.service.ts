@@ -12,7 +12,7 @@ export class PessoaFiltro {
   providedIn: 'root'
 })
 export class PessoasService {
-
+  
   pessoasUrl = 'http://localhost:8080/pessoas';
 
   constructor(private http : HttpClient) { }
@@ -63,7 +63,7 @@ export class PessoasService {
       .then(response => response['content']); 
   }
 
-  salvar(pessoa : Pessoa) : Promise<any> {
+  salvar(pessoa : Pessoa) : Promise<Pessoa> {
     const headers = new HttpHeaders({
       'Authorization': 'Basic YWRtaW46YWRtaW4=',
       'Content-Type': 'application/json'
@@ -72,6 +72,35 @@ export class PessoasService {
     return this.http.post(this.pessoasUrl,
       JSON.stringify(pessoa), { headers })
     .toPromise()
-    .then(response => response);
+    .then(response => {
+      const pessoa = response as Pessoa;
+      return pessoa;
+    }); 
+  }
+
+  atualizar(pessoa: Pessoa) : Promise<Pessoa> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Basic YWRtaW46YWRtaW4=',
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put(`${this.pessoasUrl}/${pessoa.id}`,
+      JSON.stringify(pessoa), { headers })
+    .toPromise()
+    .then(response => {
+      const pessoa = response as Pessoa;
+      return pessoa;
+    }); 
+  }
+
+  buscarPorId(id: number) : Promise<Pessoa> {
+    const headers = new HttpHeaders({'Authorization': 'Basic YWRtaW46YWRtaW4='});
+    
+    return this.http.get(`${this.pessoasUrl}/${id}`, { headers })
+      .toPromise()
+      .then(response => {
+        const pessoa = response as Pessoa;
+        return pessoa;
+      }); 
   }
 }

@@ -6,6 +6,8 @@ import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { PessoasService } from '../pessoas.service';
 import { Pessoa } from 'src/app/core/model';
 import { NgForm } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-pessoa',
@@ -19,12 +21,55 @@ export class CadastroPessoaComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private erroHandler: ErrorHandlerService,
-    private pessoaService: PessoasService) { }
+    private pessoaService: PessoasService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private title: Title) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Nova Pessoa');
+
+    const pessoaId = this.route.snapshot.params['id'];
+    
+    if (pessoaId) {
+      this.atualizarTitilo();
+      this.carregarPessoa(pessoaId);
+    }
+
+  }
+  
+  get editando() : boolean {
+    return Boolean(this.pessoa.id)
   }
 
-  cadastrar(form : NgForm) {
+  carregarPessoa(id: number) {
+    this.pessoaService.buscarPorId(id)
+      .then(pessoa => {
+        this.pessoa = pessoa;
+      })
+      .catch(erro => this.erroHandler.handle(erro));
+  }
+ 
+  nova(form : NgForm){
+    form.reset();
+    this.pessoa = new Pessoa();
+
+    this.router.navigate(['/pessoas/nova']);
+  }
+
+  atualizarTitilo() {
+    this.title.setTitle('Edição de Pessoa');
+  }
+
+  cadastrar(form: NgForm){
+    if(this.editando) {
+      this.atualizar(form);
+    } else {
+      this.salvar(form);
+    }
+  }
+
+  salvar(form : NgForm) {
     this.pessoaService.salvar(this.pessoa)
     .then(() => {
       this.messageService.add(
@@ -35,8 +80,23 @@ export class CadastroPessoaComponent implements OnInit {
           life: 3000
         })
       
-      form.reset();
-      this.pessoa = new Pessoa();
+      this.router.navigate(['/pessoas', this.pessoa.id]);
+    })
+    .catch(erro => this.erroHandler.handle(erro));
+  }
+
+  atualizar(form : NgForm) {
+    this.pessoaService.atualizar(this.pessoa)
+    .then(pessoa => {
+      this.messageService.add(
+        { 
+          key: 'salvar',
+          severity:'success', 
+          summary: 'Pessoa editada com sucesso!',
+          life: 3000
+        })
+      
+      this.pessoa = pessoa;
     })
     .catch(erro => this.erroHandler.handle(erro));
   }

@@ -6,6 +6,7 @@ import { Table } from 'primeng/table/table';
 
 import { ErrorHandlerService } from '../../core/error-handler.service';
 import { PessoaFiltro, PessoasService } from '../pessoas.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pesquisa-pessoas',
@@ -23,11 +24,11 @@ export class PesquisaPessoasComponent implements OnInit{
       private pessoaService : PessoasService,
       private erroHandler : ErrorHandlerService,
       private messageService: MessageService,
-      private confirmationService: ConfirmationService
-    ) { }
+      private confirmationService: ConfirmationService,
+      private title: Title) { }
 
   ngOnInit(): void {
-    
+    this.title.setTitle('Pessoas')
   }
 
   pesquisar(pagina = 0) {

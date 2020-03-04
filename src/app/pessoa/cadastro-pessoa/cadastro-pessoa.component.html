@@ -4,7 +4,7 @@
     <form #pessoaForm="ngForm" name="pessoaForm" (ngSubmit)="cadastrar(pessoaForm)">
         <div class="ui-g">
             <div class="ui-g-12">
-                <h1>Nova Pessoa</h1>
+                <h1>{{ editando ? 'Edição de' : 'Nova' }} Pessoa</h1>
             </div>
 
             <div class="ui-g-12 ui-fluid">
@@ -83,8 +83,8 @@
 
             <div class="ui-g-12">
                 <button pButton [disabled]="!pessoaForm.valid" type="submit" class="ui-button-primary" label="Salvar"></button>    
-                <button pButton type="button" class="ui-button-info" label="Novo"></button>
-                <a href="javascript:;">Voltar para a pesquisa</a>
+                <button pButton type="button" class="ui-button-info" label="Novo" (click)="nova(pessoaForm)"></button>
+                <a routerLink="/pessoas">Voltar para a pesquisa</a>
             </div>
         </div>
     </form>

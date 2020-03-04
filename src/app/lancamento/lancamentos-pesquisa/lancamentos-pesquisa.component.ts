@@ -6,6 +6,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 
 import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 import { ErrorHandlerService } from '../../core/error-handler.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -24,10 +25,11 @@ export class LancamentosPesquisaComponent {
     private lancamentoService: LancamentoService,
     private erroHandler : ErrorHandlerService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private title: Title) { }
 
   ngOnInit() {
-    
+    this.title.setTitle('Lista de lançamentos')
   }
 
   pesquisar(pagina = 0) {

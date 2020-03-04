@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { BrowserModule }    from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -16,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
+import { LancamentosRoutingModule } from './lancamentos-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -29,7 +29,6 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule,
 
     // Primeng
     InputTextModule,
@@ -40,11 +39,9 @@ import { SharedModule } from '../shared/shared.module';
     DropdownModule,
     ToastModule,
 
-    SharedModule
+    SharedModule,
+    LancamentosRoutingModule
   ],
-  exports: [
-    LancamentoCadastroComponent,
-    LancamentosPesquisaComponent
-  ]
+  exports: []
 })
 export class LancamentoModule { }
