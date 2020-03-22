@@ -12,6 +12,7 @@ import { LancamentoModule } from './lancamento/lancamento.module';
 import { PessoaModule } from './pessoa/pessoa.module';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
+import { SegurancaModule } from './seguranca/seguranca.module';
 
 registerLocaleData(localePt, 'pt');
 
@@ -27,6 +28,7 @@ registerLocaleData(localePt, 'pt');
     LancamentoModule,
     PessoaModule,
     CoreModule,
+    SegurancaModule,
     AppRoutingModule
   ],
   exports: [],
