@@ -8,6 +8,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ErrorHandlerService } from './error-handler.service';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
+import { AuthService } from '../seguranca/auth.service';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     MessageService,
     ConfirmationService,
     ErrorHandlerService,
+    AuthService,
     Title
   ]
 })
