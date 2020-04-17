@@ -7,6 +7,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { LancamentoService, LancamentoFiltro } from '../lancamento.service';
 import { ErrorHandlerService } from '../../core/error-handler.service';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from 'src/app/seguranca/auth.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -26,7 +27,8 @@ export class LancamentosPesquisaComponent {
     private erroHandler : ErrorHandlerService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private title: Title) { }
+    private title: Title,
+    private auth: AuthService) { }
 
   ngOnInit() {
     this.title.setTitle('Lista de lançamentos')
@@ -56,6 +58,10 @@ export class LancamentosPesquisaComponent {
           this.excluirLancamento(id);
       }
     });
+  }
+
+  isPermitido(permissao: string) : boolean{
+    return this.auth.temPermissao(permissao);
   }
 
   private excluirLancamento(id : number){

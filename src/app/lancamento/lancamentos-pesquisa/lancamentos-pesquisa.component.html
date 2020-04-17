@@ -60,7 +60,8 @@
                     <a pButton icon="pi pi-pencil" pTooltip="Editar" 
                       [routerLink]="['/lancamentos', lancamento.id]" tooltipPosition="top"></a>
                     <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="bottom"
-                      (click)="excluir(lancamento.id)"></button>
+                      (click)="excluir(lancamento.id)"
+                      [disabled]="!isPermitido('ROLE_REMOVER_LANCAMENTO')"></button>
                     </td>
                 </tr>
             </ng-template>

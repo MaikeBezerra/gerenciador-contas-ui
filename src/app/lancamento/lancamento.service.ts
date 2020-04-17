@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
 import * as moment from 'moment'
+
 import { Lancamento } from '../core/model';
 
 export class LancamentoFiltro {
@@ -29,9 +31,9 @@ export class LancamentoService {
             moment(filtro.dataVencimentoFim).format('YYYY-MM-DD') : '')
       .set('page', filtro.pagina.toString())
       .set('size', filtro.itensPorPagina.toString());
-    const headers = new HttpHeaders({'Authorization': 'Basic YWRtaW46YWRtaW4='});
+    //const headers = new HttpHeaders({'Authorization': 'Basic YWRtaW46YWRtaW4='});
    
-    return this.http.get(`${this.lancamentoUrl}`, {headers, params})
+    return this.http.get(`${this.lancamentoUrl}`, {params})
       .toPromise()
       .then(response => {
         const lancamentos = response['content'];
@@ -84,9 +86,7 @@ export class LancamentoService {
   }
 
   buscarPorId(id: number): Promise<Lancamento>{
-    const headers = new HttpHeaders({'Authorization': 'Basic YWRtaW46YWRtaW4='});
-    
-    return this.http.get(`${this.lancamentoUrl}/${id}`, {headers})
+    return this.http.get(`${this.lancamentoUrl}/${id}`)
       .toPromise()
       .then(response => {
         const lancamento = response as Lancamento;

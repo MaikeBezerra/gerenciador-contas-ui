@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { AuthService } from 'src/app/seguranca/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,6 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  exibirMenu = false;
 
+  exibirMenu = false;
+  
+  constructor(private auth: AuthService){}
+  
+  usuario = this.auth.jwtPlayload.nome
+
+  hasAuthority(permissao: string){
+    return this.auth.temPermissao(permissao);
+  }
 }
