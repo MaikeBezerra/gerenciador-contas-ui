@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
@@ -22,7 +22,7 @@ export function tokenGetter() : string {
   imports: [
     CommonModule,
     FormsModule,
-
+    HttpClientModule,
     InputTextModule,
     ButtonModule,
 
