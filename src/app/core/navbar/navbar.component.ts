@@ -1,4 +1,4 @@
-import { Component, ErrorHandler } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { AuthService } from 'src/app/seguranca/auth.service';
 import { ErrorHandlerService } from '../error-handler.service';
