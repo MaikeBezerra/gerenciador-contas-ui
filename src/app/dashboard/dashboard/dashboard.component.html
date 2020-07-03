@@ -1,1 +1,15 @@
-<p>dashboard works!</p>
+<div class="container">
+    <div class="ui-g">
+        <div class="ui-g-12">
+            <h1>Dashboard</h1>
+        </div>
+
+        <div class="ui-g-12 ui-md-6">
+            <p-chart type="pie" [data]="pieChart" [options]="pieOptions" [height]="tamanho"></p-chart>
+        </div>
+
+        <div class="ui-g-12 ui-md-6">
+            <p-chart type="line" [data]="lineChart" [options]="options" [height]="tamanho"></p-chart>
+        </div>
+    </div>
+</div>
