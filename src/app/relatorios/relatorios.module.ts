@@ -5,13 +5,18 @@ import { SharedModule } from '../shared/shared.module'
 import { RelatoriosRoutingModule } from './relatorios-routing.module';
 import { from } from 'rxjs';
 import { RelatorioLancamentosComponent } from './relatorio-lancamentos/relatorio-lancamentos.component';
+import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
   declarations: [RelatorioLancamentosComponent],
   imports: [
     CommonModule,
+    FormsModule,
 
+    CalendarModule,
+    
     SharedModule,
     RelatoriosRoutingModule
   ]
