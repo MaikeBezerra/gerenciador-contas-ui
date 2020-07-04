@@ -14,7 +14,12 @@ const routes: Routes = [
       loadChildren: () => import('./pessoa/pessoa.module').then(m => m.PessoaModule)
     },
 
-    { path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
+    { 
+      path: 'dashboard', 
+      loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+    },
+
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
     { path: '**', redirectTo: 'pagina-nao-encontrada' }
   ];
