@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Pessoa } from '../core/model';
+import { Pessoa, Estado, Cidade } from '../core/model';
 
 export class PessoaFiltro {
   nome: string;
@@ -14,6 +14,8 @@ export class PessoaFiltro {
 export class PessoasService {
   
   pessoasUrl = 'http://localhost:8080/pessoas';
+  estadosUrl = 'http://localhost:8080/estados';
+  cidadesUrl = 'http://localhost:8080/cidades';
 
   constructor(private http : HttpClient) { }
 
@@ -102,5 +104,20 @@ export class PessoasService {
         const pessoa = response as Pessoa;
         return pessoa;
       }); 
+  }
+
+  listarEstados(): Promise<Estado[]> {
+    return this.http.get(this.estadosUrl)
+      .toPromise()
+      .then(response => response as Estado[]);
+  }
+
+  listarCidades(idEstado): Promise<Cidade[]> {
+    const params = new HttpParams()
+      .set('idEstado', idEstado);
+    
+    return this.http.get(this.cidadesUrl, { params })
+      .toPromise()
+      .then(response => response as Cidade[]);
   }
 }

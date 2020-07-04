@@ -64,21 +64,21 @@
             </div>
 
             <div class="ui-g-12 ui-md-6 ui-fluid">
-                <label>Cidade</label>
-                <input pInputText type="text" name="cidade" [(ngModel)]="pessoa.endereco.cidade"
-                    ngModel #cidade="ngModel" required>
-
-                <app-message [control]="cidade" error="required"
-                    severity="warn" text="Informe a cidade" ></app-message>
+                <label>Estado</label>
+                
+                <p-dropdown placeholder="Selecione..."
+                    [filter]="true" name="idEstado" [options]="estados"
+                    [(ngModel)]="idEstado" (onChange)="carregarCidades()"></p-dropdown>
             </div>
 
             <div class="ui-g-12 ui-md-6 ui-fluid">
-                <label>Estado</label>
-                <p-inputMask mask="aa" name="estado" [(ngModel)]="pessoa.endereco.estado"
-                    ngModel #estado="ngModel" required></p-inputMask>
+                <label>Cidade</label>
+                
+                <p-dropdown placeholder="Selecione..."
+                    [filter]="true" name="cidade" [options]="cidades"></p-dropdown>
 
-                <app-message [control]="estado" error="required"
-                    severity="warn" text="Informe o estado" ></app-message>
+                <!-- <app-message [control]="cidade" error="required"
+                    severity="warn" text="Informe a cidade" ></app-message> -->
             </div>
 
             <div class="ui-g-12">
