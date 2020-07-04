@@ -9,7 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ErrorHandlerService } from './error-handler.service';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 import { AuthService } from '../seguranca/auth.service';
-
+import { DashboardService } from '../dashboard/dashboard.service'
 
 @NgModule({
   declarations: [ NavbarComponent, PaginaNaoEncontradaComponent],
@@ -23,6 +23,7 @@ import { AuthService } from '../seguranca/auth.service';
     ConfirmationService,
     ErrorHandlerService,
     AuthService,
+    DashboardService,
     Title
   ]
 })
