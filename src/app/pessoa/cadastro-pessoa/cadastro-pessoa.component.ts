@@ -20,6 +20,7 @@ export class CadastroPessoaComponent implements OnInit {
   estados: any[];
   cidades: any[];
   idEstado: number;
+  exibindoFormularioContato = false;
 
   constructor(
     private messageService: MessageService,
@@ -42,6 +43,10 @@ export class CadastroPessoaComponent implements OnInit {
     }
   }
   
+  prepararNovoContato() {
+    this.exibindoFormularioContato = true;
+  }
+
   carregarEstados() {
     this.pessoaService.listarEstados().then(lista => {
       this.estados = lista.map(uf => ({ label: uf.nome, value: uf.id }));
