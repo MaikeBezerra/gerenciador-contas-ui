@@ -4,7 +4,7 @@ import { MessageService } from 'primeng/api';
 
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { PessoasService } from '../pessoas.service';
-import { Pessoa } from 'src/app/core/model';
+import { Pessoa, Contato } from 'src/app/core/model';
 import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +21,7 @@ export class CadastroPessoaComponent implements OnInit {
   cidades: any[];
   idEstado: number;
   exibindoFormularioContato = false;
+  contato: Contato;
 
   constructor(
     private messageService: MessageService,
@@ -45,6 +46,20 @@ export class CadastroPessoaComponent implements OnInit {
   
   prepararNovoContato() {
     this.exibindoFormularioContato = true;
+    this.contato = new Contato();
+  }
+
+  confirmarContato(frm: NgForm) {
+    this.pessoa.contatos.push(this.clonarContato(this.contato));
+
+    this.exibindoFormularioContato = false;
+
+    frm.reset();
+  }
+
+  clonarContato(contato: Contato): Contato {
+    return new Contato(contato.id,
+      contato.nome, contato.email, contato.telefone);
   }
 
   carregarEstados() {
