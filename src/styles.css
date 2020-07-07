@@ -45,3 +45,7 @@ body {
 body .ui-button {
   margin-right: 5px;
 }
+
+.label-spaced {
+  margin: 5px;
+}
