@@ -17,6 +17,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CadastroPessoaComponent implements OnInit {
 
   pessoa = new Pessoa();
+  estados: any[];
+  cidades: any[];
+  idEstado: number;
 
   constructor(
     private messageService: MessageService,
@@ -31,13 +34,28 @@ export class CadastroPessoaComponent implements OnInit {
 
     const pessoaId = this.route.snapshot.params['id'];
     
+    this.carregarEstados();
+
     if (pessoaId) {
       this.atualizarTitilo();
       this.carregarPessoa(pessoaId);
     }
-
   }
   
+  carregarEstados() {
+    this.pessoaService.listarEstados().then(lista => {
+      this.estados = lista.map(uf => ({ label: uf.nome, value: uf.id }));
+    })
+    .catch(erro => this.erroHandler.handle(erro));
+  }
+
+  carregarCidades() {
+    this.pessoaService.listarCidades(this.idEstado).then(lista => {
+      this.cidades = lista.map(c => ({ label: c.nome, value: c.id }));
+    })
+    .catch(erro => this.erroHandler.handle(erro));
+  }
+
   get editando() : boolean {
     return Boolean(this.pessoa.id)
   }
@@ -46,6 +64,13 @@ export class CadastroPessoaComponent implements OnInit {
     this.pessoaService.buscarPorId(id)
       .then(pessoa => {
         this.pessoa = pessoa;
+
+        this.idEstado = (this.pessoa.endereco.cidade) ?
+          this.pessoa.endereco.cidade.estado.id : null;
+
+        if(this.idEstado) {
+          this.carregarCidades();
+        }
       })
       .catch(erro => this.erroHandler.handle(erro));
   }
