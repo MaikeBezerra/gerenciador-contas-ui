@@ -32,7 +32,7 @@
                     <th>Cidade</th>
                     <th>Estado</th>
                     <th>Status</th>
-                    <th></th>
+                    <th class="col-acoes-header"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-pessoa>
@@ -41,15 +41,15 @@
                     <td>{{pessoa.endereco?.cidade?.nome}}</td>
                     <td>{{pessoa.endereco?.cidade?.estado.nome}}</td>
                     <td>
-                    <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'"
-                      tooltipPosition="top" (click)="mudarStatus(pessoa)" [style]="pessoa.ativo ? 'color:blue;' : 'color:red;'">
-                        {{pessoa.ativo ? 'Ativo' : 'Inativo'}}
-                    </a>
+                      <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'"
+                        tooltipPosition="top" (click)="mudarStatus(pessoa)" [style]="pessoa.ativo ? 'color:blue;' : 'color:red;'">
+                          {{pessoa.ativo ? 'Ativo' : 'Inativo'}}
+                      </a>
                     </td>
-                    <td class="col-acoes-content">
-                    <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/pessoas', pessoa.id]"></a>
-                    <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="bottom"
-                    (click)="excluir(pessoa.id)"></button>
+                    <td class="col-acoes">
+                      <a pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/pessoas', pessoa.id]"></a>
+                      <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="bottom"
+                      (click)="excluir(pessoa.id)"></button>
                     </td>
                 </tr>
             </ng-template>
