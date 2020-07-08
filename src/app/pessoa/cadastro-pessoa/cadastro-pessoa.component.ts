@@ -22,6 +22,7 @@ export class CadastroPessoaComponent implements OnInit {
   idEstado: number;
   exibindoFormularioContato = false;
   contato: Contato;
+  contatoIndex: number;
 
   constructor(
     private messageService: MessageService,
@@ -47,17 +48,31 @@ export class CadastroPessoaComponent implements OnInit {
   prepararNovoContato() {
     this.exibindoFormularioContato = true;
     this.contato = new Contato();
+    this.contatoIndex = this.pessoa.contatos.length;
+  }
+
+  prepararEdicaoContato(contato: Contato, index: number) {
+    this.contato = this.clonarContato(contato);
+    this.exibindoFormularioContato = true;
+    this.contatoIndex = index;
+  }
+
+  removerContato(index: number) {
+    this.pessoa.contatos.splice(index, 1);
   }
 
   confirmarContato(frm: NgForm) {
-    this.pessoa.contatos.push(this.clonarContato(this.contato));
+    this.pessoa.contatos[this.contatoIndex] = this.clonarContato(this.contato);
 
     this.exibindoFormularioContato = false;
+    console.log(this.pessoa)
 
     frm.reset();
   }
 
   clonarContato(contato: Contato): Contato {
+    console.log(contato);
+    
     return new Contato(contato.id,
       contato.nome, contato.email, contato.telefone);
   }
@@ -84,7 +99,7 @@ export class CadastroPessoaComponent implements OnInit {
     this.pessoaService.buscarPorId(id)
       .then(pessoa => {
         this.pessoa = pessoa;
-
+  
         this.idEstado = (this.pessoa.endereco.cidade) ?
           this.pessoa.endereco.cidade.estado.id : null;
 
@@ -131,6 +146,8 @@ export class CadastroPessoaComponent implements OnInit {
   }
 
   atualizar(form : NgForm) {
+    
+    console.log(this.pessoa)
     this.pessoaService.atualizar(this.pessoa)
     .then(pessoa => {
       this.messageService.add(
