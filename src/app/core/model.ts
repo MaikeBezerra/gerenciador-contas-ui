@@ -3,6 +3,24 @@ export class Pessoa {
   nome: string;
   ativo = true;
   endereco = new Endereco();
+  contatos = new Array<Contato>();
+}
+
+export class Contato {
+  id: number;
+  nome: string;
+  email: string;
+  telefone: string;
+
+  constructor(id?: number,
+    nome?: string,
+    email?: string,
+    telefone?: string) {
+      this.id = id;
+      this.nome = nome;
+      this.email = email;
+      this.telefone = telefone;
+  }
 }
 
 export class Estado {

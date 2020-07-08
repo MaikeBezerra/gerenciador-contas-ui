@@ -49,3 +49,12 @@ body .ui-button {
 .label-spaced {
   margin: 5px;
 }
+
+.col-acoes {
+  width: 125px;
+  text-align: center;
+}
+
+.col-acoes-header {
+  width: 125px;
+}

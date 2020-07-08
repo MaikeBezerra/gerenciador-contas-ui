@@ -10,6 +10,8 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
+import {PanelModule} from 'primeng/panel';
+import {DialogModule} from 'primeng/dialog';
 
 import { CadastroPessoaComponent } from './cadastro-pessoa/cadastro-pessoa.component';
 import { PesquisaPessoasComponent } from './pesquisa-pessoas/pesquisa-pessoas.component';
@@ -33,6 +35,8 @@ import { SharedModule } from '../shared/shared.module';
     TooltipModule,
     ToastModule,
     DropdownModule,
+    PanelModule,
+    DialogModule,
 
     SharedModule,
     PessoasRoutingModule
